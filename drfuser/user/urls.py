@@ -33,7 +33,7 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='auth_logout'),
     path('change_password/', ChangePasswordView.as_view(), name='change_password'),
     path('update_form/<pk>/', updateFormView.as_view()),
-
+    path('f/', formview.as_view()),
     path('forms/', forms)
     
 ]

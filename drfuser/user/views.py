@@ -172,10 +172,22 @@ def error404(request, exception):
     return HttpResponse(request,msg, content_type='text/plain')
 
 
-
-
-
-
+class formview(APIView):
+    permission_classes=[AllowAny,]
+    def post(self,request, *args,**kwargs):
+        try:
+            i=request.data["i"]
+            i=str(i)
+            response=Form.objects.filter(id=i)
+            form=Form.objects.get(id=i)
+            print(form.destination)
+            serializer=FormSerializer(response,many=True)
+            if form.approval==True:
+                return Response({"result":serializer.data,"message":"approved"})
+            else:
+                return Response({"result":serializer.data,"message":"not approved"})
+        except:
+             return Response({'message':' item not found'})
 
 
 
