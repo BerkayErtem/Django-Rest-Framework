@@ -84,6 +84,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'drfuser.wsgi.application'
+ASGI_APPLICATION = 'drfuser.asgi.application'
 
 
 # Database

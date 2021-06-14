@@ -44,7 +44,7 @@ class userViewSet(viewsets.ModelViewSet):
     authentication_classes=(TokenAuthentication,)
     permission_classes = ()
     def delete(self, request, *args, **kwargs):
-        return self.destroy(request,*args, **kwargs) 
+        return self.destroy(request,*args, **kwargs)
 
 class companyViewSet(viewsets.ModelViewSet):
     serializer_class=CompanySerializer
@@ -189,5 +189,20 @@ class formview(APIView):
         except:
              return Response({'message':' item not found'})
 
+class finduserview(APIView):
+    permission_classes=[AllowAny,]
+    def post(self,request, *args,**kwargs):
+        if request.method=='POST':
+            username=request.data["username"]
+            # id=request.data['id']
+        if username:
+            response=User.objects.filter(username=username)
+            serializer=userSerializer(response,many=True,context={'request': request})
+        # if id:
+        #     response=User.objects.filter(id=id)
+        #     serializer=userSerializer(response,many=True,context={'request': request})
+        return Response({"result":serializer.data})
+    
+        # return Response({'message':' item not found'})
 
 

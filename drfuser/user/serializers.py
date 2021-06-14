@@ -29,7 +29,6 @@ class FormSerializer(serializers.ModelSerializer):
         )
         form.save()
         return form
-
 class userSerializer(serializers.HyperlinkedModelSerializer):
 
     password2=serializers.CharField(style={'input_type':'password'}, write_only=True)
@@ -61,15 +60,15 @@ class updateForm(serializers.ModelSerializer):
         extra_kwargs={'destination': {'required': False},'date': {'required': False}}
         def update(self, instance, validated_data):
             instance.approval=self.validated_data['approval']
-            instance.destination=self.validated_data['destination']
-            instance.save() 
+            #instance.destination=self.validated_data['destination']
+            instance.save()
             return instance
 class updateUser(serializers.ModelSerializer):
     
     class Meta:
         model=User
-        # fields=('username','is_staff','company_name','is_admin')
-        fields='__all__'
+        fields=('username','is_staff','company_name','is_admin','phone')
+        #fields='__all__'
         extra_kwargs = {'username': {'required': False},'password': {'required': False},'is_admin': {'required': False}} 
         
 
@@ -78,13 +77,13 @@ class updateUser(serializers.ModelSerializer):
         auth=self.context['request'].auth
         user=self.context['request'].user
 
-        instance.username=self.validated_data['username']
+        instance.username=self.validated_data.get('username',instance.username)
         instance.is_admin=self.validated_data['is_admin']
         instance.is_staff=self.validated_data['is_staff']
-        instance.company_name=self.validated_data['company_name'] 
-        
-        if user.pk!= instance.pk:
-            raise serializers.ValidationError({"authorize": "You dont have permission for this user."})
+        instance.company_name=self.validated_data.get('company_name',instance.company_name)
+        instance.phone=self.validated_data.get('phone', instance.phone)
+        # if user.pk!= instance.pk:
+        #     raise serializers.ValidationError({"authorize": "You dont have permission for this user."})
         print(method)
         print(auth)
         print(user.username)
