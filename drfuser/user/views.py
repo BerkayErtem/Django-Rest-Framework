@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import render
 from django.contrib import auth
 from rest_framework import status, viewsets
@@ -205,4 +206,15 @@ class finduserview(APIView):
     
         # return Response({'message':' item not found'})
 
+import asyncio
+import datetime
+def kkk(request):
+    
+    now=(datetime.datetime.now())
+    return now
+from asgiref.sync import sync_to_async
+def kk(request):
 
+    now = sync_to_async(kkk, thread_sensitive=True)
+    print(now)
+    return HttpResponse(now,content_type='text/plain')
