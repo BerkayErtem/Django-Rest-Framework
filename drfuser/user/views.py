@@ -205,3 +205,11 @@ class finduserview(APIView):
         return Response({"result":serializer.data})
     
         # return Response({'message':' item not found'})
+def count(request):
+    users=User.objects.all().count()
+    company=Company.objects.all().count()
+    subs=Subsidiary.objects.all().count()
+    form=Form.objects.all().count()
+    usersdict = User.objects.in_bulk()
+    print(usersdict)
+    return JsonResponse({'users count':users, 'company count':company, 'subsidiary count':subs, 'form count':form}, safe=False)
