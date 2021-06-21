@@ -35,7 +35,6 @@ urlpatterns = [
     path('update_form/<pk>/', updateFormView.as_view()),
     path('find/', finduserview.as_view()),
     path('f/', formview.as_view()),
-    path('kk/', kk),
     path('forms/', forms)
     
 ]

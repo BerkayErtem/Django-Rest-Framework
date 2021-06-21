@@ -205,16 +205,3 @@ class finduserview(APIView):
         return Response({"result":serializer.data})
     
         # return Response({'message':' item not found'})
-
-import asyncio
-import datetime
-def kkk(request):
-    
-    now=(datetime.datetime.now())
-    return now
-from asgiref.sync import sync_to_async
-def kk(request):
-
-    now = sync_to_async(kkk, thread_sensitive=True)
-    print(now)
-    return HttpResponse(now,content_type='text/plain')
