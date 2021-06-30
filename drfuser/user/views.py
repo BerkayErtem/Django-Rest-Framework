@@ -1,31 +1,20 @@
-from datetime import datetime
-from django.shortcuts import render
+
 from django.contrib import auth
 from rest_framework import status, viewsets
 from rest_framework.decorators import APIView, api_view, permission_classes
-from rest_framework.authentication import TokenAuthentication,SessionAuthentication, BasicAuthentication
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 import json
-
 from rest_framework.generics import GenericAPIView
-from rest_framework_simplejwt.tokens import RefreshToken, TokenError
-from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.response import Response
-from rest_framework.serializers import Serializer
 from rest_framework.permissions import IsAuthenticated
 from .serializers import (userSerializer, updateUser, CompanySerializer, subsidiarySerializer, MyTokenObtainPairSerializer, RefreshTokenSerializer,
 imageSerializer, ChangePasswordSerializer, FormSerializer, updateForm)
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.views import TokenObtainPairView
-
 from .models import Subsidiary, User, Company, Image, Form
 from rest_framework import generics
-from django.utils.decorators import method_decorator 
 from rest_framework import permissions
-
-from rest_framework.exceptions import NotFound
-
-
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -197,7 +186,7 @@ class finduserview(APIView):
             username=request.data["username"]
             # id=request.data['id']
         if username:
-            response=User.objects.filter(username=username)
+            response=User.objects.filter(username__startswith=username)
             serializer=userSerializer(response,many=True,context={'request': request})
         # if id:
         #     response=User.objects.filter(id=id)

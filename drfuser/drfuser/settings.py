@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'phone_field',
     'user',
-]
+    'api'
+] 
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [

@@ -23,6 +23,7 @@ app_name='user'
 urlpatterns = [
     path('admin/', admin.site.urls),
     
-    path('', include('user.urls'))
+    path('', include('user.urls')),
+    path('api/', include('api.urls'))
 ]
   
