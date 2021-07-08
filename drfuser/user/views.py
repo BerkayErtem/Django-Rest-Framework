@@ -149,6 +149,7 @@ def k(request):
 def forms(request):
     if request.method=='POST':
         i=request.POST.get('i')
+        
     try:
         form=Form.objects.get(id=i)
         if form.approval==True:
@@ -179,7 +180,13 @@ class formview(APIView):
         except:
              return Response({'message':' item not found'})
 
+class formdeleteview(generics.DestroyAPIView):
+    permission_classes=[AllowAny,]
+    queryset=Form.objects.all()
+    serializer_class=FormSerializer
+
 class finduserview(APIView):
+
     permission_classes=[AllowAny,]
     def post(self,request, *args,**kwargs):
         if request.method=='POST':
