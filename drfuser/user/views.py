@@ -18,6 +18,7 @@ from rest_framework import permissions
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.http import JsonResponse
+from django_filters.rest_framework import DjangoFilterBackend
 
 class FormViewSet(viewsets.ModelViewSet):
     serializer_class=FormSerializer
@@ -165,6 +166,7 @@ def error404(request, exception):
 
 class formview(APIView):
     permission_classes=[AllowAny,]
+    
     def post(self,request, *args,**kwargs):
         try:
             i=request.data["i"]
@@ -179,7 +181,12 @@ class formview(APIView):
                 return Response({"result":serializer.data,"message":"not approved"})
         except:
              return Response({'message':' item not found'})
-
+class form_view(generics.ListAPIView):
+    queryset=Form.objects.all()
+    serializer_class=FormSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields='__all__'
+    
 class formdeleteview(generics.DestroyAPIView):
     permission_classes=[AllowAny,]
     queryset=Form.objects.all()

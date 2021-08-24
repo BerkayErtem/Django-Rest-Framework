@@ -39,7 +39,7 @@ urlpatterns = [
     path('f/', formview.as_view()),
     path('forms/', forms),
     path('form/<int:pk>/delete', formdeleteview.as_view()), 
-
+    path('formfilter/', form_view.as_view()),
     path('count/', count),
     
     

@@ -25,9 +25,13 @@ SECRET_KEY = '+$98*#q)u9x5013g_fae!6fcusvqg38&#15$jexo7i4ud6%#an'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# CORS_ORIGIN_ALLOW_ALL = True
+ALLOWED_HOSTS=['*']
 AUTH_USER_MODEL='user.User'
-
+# CORS_ALLOWED_ORIGINS = [
+    
+#     "http://127.0.0.1:3000",
+# ]
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework_simplejwt.token_blacklist',
+    'corsheaders',
+    'django_filters',
     'rest_framework',
     'phone_field',
     'user',
@@ -45,9 +51,7 @@ INSTALLED_APPS = [
 ] 
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': [
-        'django_filters.rest_framework.DjangoFilterBackend'
-    ],
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],    
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -64,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
