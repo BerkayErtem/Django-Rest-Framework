@@ -23,6 +23,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 class FormViewSet(viewsets.ModelViewSet):
     serializer_class=FormSerializer
     queryset=Form.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields='__all__'
     def delete(self, request, *args, **kwargs):
         return self.destroy(request,*args, **kwargs) 
 class MyObtainTokenPairView(TokenObtainPairView):
@@ -181,11 +183,7 @@ class formview(APIView):
                 return Response({"result":serializer.data,"message":"not approved"})
         except:
              return Response({'message':' item not found'})
-class form_view(generics.ListAPIView):
-    queryset=Form.objects.all()
-    serializer_class=FormSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields='__all__'
+
     
 class formdeleteview(generics.DestroyAPIView):
     permission_classes=[AllowAny,]
